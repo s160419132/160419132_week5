@@ -24,3 +24,6 @@ Route::get('/report/listmedicine/{id}','CategoryController@showlist')->name('rep
 Route::get('/report/listCategory','CategoryController@showlistcategory')->name('reportShowListCategory');
 Route::get('/report/listMedicineandCategoryName','MedicineController@listmedicineandcategoryname')->name('reportShowListMedicineAndCategoryname');
 Route::get('/report/list_category_didnt_have_medicine','CategoryController@showlistcategorynohavemedicine')->name('showlistcategorynohavemedicine');
+Route::get('/report/list_categories_have_1_medicine','CategoryController@showlistcategorywithonemedicine')->name('showlistcategorywithonemedicine');
+Route::get('/report/expensive_medicine','MedicineController@expensiveMedicine')->name('expensiveMedicine');
+

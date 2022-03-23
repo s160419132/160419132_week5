@@ -111,4 +111,10 @@ class MedicineController extends Controller
         ->get();
         return view('report.list_medicine_and_category_name',compact('data'));
     }
+
+    public function expensiveMedicine(){
+        
+        $data= DB::select(DB::raw("SELECT generic_name,category_id FROM medicines WHERE price = (SELECT max(price) FROM medicines);"));
+        return view('report.expensive_medicine',compact('data'));
+    }
 }

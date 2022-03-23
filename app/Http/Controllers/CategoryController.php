@@ -110,9 +110,19 @@ class CategoryController extends Controller
     }
 
     public function showlistcategorynohavemedicine(){
-        // $data=DB::table("categories")->leftJoin("medicines", function($join){
-	    // $join->on("categories.id", "=", "medicines.category_id");
-        // })->select("name")->whereNull("medicines.category_id")->get();
-        // dd($data);
+        $data=DB::table("categories")->leftJoin("medicines", function($join){
+	    $join->on("categories.id", "=", "medicines.category_id");
+        })->select("name")->whereNull("medicines.category_id")->get();
+        if($data)
+            $totalCategory=$data->count();
+        else
+            $totalCategory=0;       
+        return view('report.list_category_didnt_have_medicine',compact('data','totalCategory'));
     }
+
+    public function showlistcategorywithonemedicine(){
+        $data= DB::select(DB::raw("SELECT * FROM categories as a INNER JOIN (SELECT c.id as 'id',count(m.id) as 'jumlah' FROM medicines as m INNER JOIN categories as c ON m.category_id=c.id GROUP BY c.id) as b ON a.id=b.id WHERE b.jumlah=1;"));
+       
+        return view('report.list_categories_have_1_medicine',compact('data'));
+    } 
 }

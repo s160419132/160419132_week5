@@ -1,25 +1,23 @@
 @extends('layout.conquer2')
 @section('title')
-list nama medecines, formula dan nama kategori
+  Kategori yang memiliki 1 data medicine
 @endsection
 @section('content')
 <div class="container">
-  <h2>list nama medicines, formula dan nama kategori</h2>
-  <p></p>            
+  <h2>Kategori yang memiliki 1 data medicine</h2> 
+  <hr/>
+           
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Form</th>
-        <th>Category Name</th>  
+        <th>Category Name</th> 
       </tr>
     </thead>
     <tbody>
         @foreach($data as $li)
       <tr>
-        <td>{{$li->generic_name}}</td>
-        <td>{{$li->form}}</td>
         <td>{{$li->name}}</td>
+      </tr>
       @endforeach
     </tbody>
   </table>

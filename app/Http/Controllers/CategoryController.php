@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+      $datas=Category::all();     
+      return view('category.index',compact('datas'));
     }
 
     /**
@@ -96,5 +98,21 @@ class CategoryController extends Controller
         else $getTotaldata=0;
 
         return view('report.list_medicines_by_category',compact('id_category','namecategory','result','getTotaldata'));
+    }
+
+    public function showlistcategory(){
+        $data=Category::all();
+        if($data)
+            $totalCategory=$data->count();
+        else
+            $totalCategory=0;
+        return view('report.list_category',compact('data','totalCategory'));
+    }
+
+    public function showlistcategorynohavemedicine(){
+        // $data=DB::table("categories")->leftJoin("medicines", function($join){
+	    // $join->on("categories.id", "=", "medicines.category_id");
+        // })->select("name")->whereNull("medicines.category_id")->get();
+        // dd($data);
     }
 }

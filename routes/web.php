@@ -18,5 +18,9 @@ Route::get('/', function () {
 });
 
 Route::resource('obat','MedicineController');
+Route::resource('kategori_obat','CategoryController');
 
 Route::get('/report/listmedicine/{id}','CategoryController@showlist')->name('reportShowMedicine');
+Route::get('/report/listCategory','CategoryController@showlistcategory')->name('reportShowListCategory');
+Route::get('/report/listMedicineandCategoryName','MedicineController@listmedicineandcategoryname')->name('reportShowListMedicineAndCategoryname');
+Route::get('/report/list_category_didnt_have_medicine','CategoryController@showlistcategorynohavemedicine')->name('showlistcategorynohavemedicine');

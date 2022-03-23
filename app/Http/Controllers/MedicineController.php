@@ -103,4 +103,12 @@ class MedicineController extends Controller
     {
         //
     }
+    
+    public function listmedicineandcategoryname(){
+        $data=DB::table('medicines')
+        ->join('categories','medicines.category_id','=','categories.id')
+        ->select('medicines.generic_name','medicines.form','categories.name')
+        ->get();
+        return view('report.list_medicine_and_category_name',compact('data'));
+    }
 }

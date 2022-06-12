@@ -26,6 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        return view("category.create");
         //
     }
 
@@ -37,7 +38,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=new Category();
+        $data->name=$request->get('name');
+        $data->description=$request->get('description');
+        $data->save();
+        return redirect()->route('categories.index')->with('status','Categories is added');
     }
 
     /**
@@ -57,9 +62,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($category)
     {
-        //
+        $data=Category::find($category);       
+        return view('category.edit',compact('data'));
     }
 
     /**
@@ -71,7 +77,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->name=$request->get('name');
+        $category->description=$request->get('description');
+        $category->save();
+        return redirect()->route('categories.index')->with('status','Category data is changed');
     }
 
     /**

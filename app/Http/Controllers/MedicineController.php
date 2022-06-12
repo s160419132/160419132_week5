@@ -13,6 +13,11 @@ class MedicineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function front_index()
+    {
+        $medicines=Medicine::all();
+        return view('frontend.product',compact('medicines'));
+    }
     public function index()
     {
        //untuk Query dengan RAW
@@ -35,6 +40,7 @@ class MedicineController extends Controller
      */
     public function create()
     {
+        return view("medicine.create");
         //
     }
 
@@ -107,7 +113,7 @@ class MedicineController extends Controller
     public function listmedicineandcategoryname(){
         $data=DB::table('medicines')
         ->join('categories','medicines.category_id','=','categories.id')
-        ->select('medicines.generic_name','medicines.form','categories.name')
+        ->select('medicines.id','medicines.generic_name','medicines.form','categories.name')
         ->get();
         return view('report.list_medicine_and_category_name',compact('data'));
     }
@@ -117,4 +123,36 @@ class MedicineController extends Controller
         $data= DB::select(DB::raw("SELECT generic_name,category_id FROM medicines WHERE price = (SELECT max(price) FROM medicines);"));
         return view('report.expensive_medicine',compact('data'));
     }
+    public function showInfo()
+    {
+        $result=Medicine::orderBy('price','DESC')->first();
+        return response()->json(array(
+          'status'=>'oke',
+          'msg'=>"<div class='alert alert-info'>
+          Did you know? <br>The most expensive product is ". $result->generic_name ."</div>"
+        ),200);
+      
+    }
+
+    public function addToCart($id){
+        $p=Medicine::find($id);
+        $cart=session()->get('cart');
+        if(!isset($cart[$id])){
+            $cart[$id]=[
+                "name"=>$p->generic_name,
+                "quantity"=>1,
+                "price"=>$p->price,
+                "photo"=>$p->image
+            ];
+        }else{
+            $cart[$id]['quantity']++;
+        }
+        session()->put('cart',$cart);
+        return redirect()->back()->with('success','Product added to cart successfully');
+    }
+
+    public function cart(){
+        return view('frontend.cart');
+    }
+
 }

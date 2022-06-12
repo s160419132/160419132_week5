@@ -18,11 +18,15 @@
 
 <div class="container">
 
-  <form method="POST" action="{{route('suppliers.store')}}">
+  <form enctype="multipart/form-data" role="form" method="POST" action="{{route('suppliers.store')}}">
       @csrf
     <div class="form-group">
       <label for="name">Nama:</label>
-      <input type="name" class="form-control" id="name" placeholder="Enter name" name="name">
+      <input type="name" class="form-control" id="name" placeholder="Enter name" name="name" >
+    </div>
+    <div class="form-grup">
+      <label>Logo</label>
+      <input type="file" class= "form-control" id="logo" name='logo'>
     </div>
     <button type="submit" class="btn btn-default">Send</button>
   </form>

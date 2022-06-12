@@ -44,12 +44,30 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="{{asset('conquer2/css/pages/tasks.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('conquer2/css/themes/default.css')}}" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="{{asset('conquer2/css/custom.css')}}" rel="stylesheet" type="text/css"/>
+
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-header-fixed">
+ <div class="modal fade" id="disclaimer" tabindex="-1" role="basic" aria-hidden="true">
+	 <div class="modal-dialog">
+		 <div class="modal-content">
+			 <div class="modal-header">
+				 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				 <h4 class="modal-title">DISCLAMER</h4>
+			 </div>
+			 <div class="modal-body">
+			 Pictures shown are for illustration purpose only.Actual product may vary due to product enhancement. 
+			 </div>
+			 <div class="modal-footer">
+			 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			 </div>
+		 </div>
+	 </div>
+ </div>
 <!-- BEGIN HEADER -->
 <div class="header navbar navbar-fixed-top">
 	<!-- BEGIN TOP NAVIGATION BAR -->
@@ -74,6 +92,10 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- END RESPONSIVE MENU TOGGLER -->
 		<!-- BEGIN TOP NAVIGATION MENU -->
 		<ul class="nav navbar-nav pull-right">
+		<li >
+			<a href="#" onclick="showInfo()">
+			<i class="icon-bulb"></a></i>
+    	 </li>
 			<!-- BEGIN NOTIFICATION DROPDOWN -->
 			<li class="dropdown" id="header_notification_bar">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -441,7 +463,11 @@ License: You must have a valid license purchased only from themeforest(the above
 					<li class="divider">
 					</li>
 					<li>
-						<a href="login.html"><i class="fa fa-key"></i> Log Out</a>
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+						<a href="{{ route('login') }}"><i class="fa fa-key"></i> Log Out</a>
+                    </form>
+						
 					</li>
 				</ul>
 			</li>
@@ -470,6 +496,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					</div>
 					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
 				</li>
+				
 				<li class="sidebar-search-wrapper">
 					<form class="search-form" role="form" action="index.html" method="get">
 						<div class="input-icon right">
@@ -483,6 +510,42 @@ License: You must have a valid license purchased only from themeforest(the above
 					<i class="icon-home"></i>
 					<span class="title">Dashboard</span>
 					<span class="selected"></span>
+					</a>
+				</li>
+				<li >
+					<a href="{{route('medicines.index')}}">
+					<i class="icon-bar-chart"></i>
+					<span class="title">Medicine</span>
+					</a>
+				</li>
+				<li >
+					<a href="{{route('medicines.create')}}">
+					<i class="icon-bar-chart"></i>
+					<span class="title">Tambah Medicine</span>
+					</a>
+				</li>
+				<li >
+					<a href="{{route('categories.index')}}">
+					<i class="icon-bar-chart"></i>
+					<span class="title">Category</span>
+					</a>
+				</li>
+				<li >
+					<a href="{{route('categories.create')}}">
+					<i class="icon-bar-chart"></i>
+					<span class="title">Tambah Category</span>
+					</a>
+				</li>
+				<li >
+					<a href="{{route('suppliers.index')}}">
+					<i class="icon-bar-chart"></i>
+					<span class="title">Supplier</span>
+					</a>
+				</li>
+				<li >
+					<a href="{{route('suppliers.create')}}">
+					<i class="icon-bar-chart"></i>
+					<span class="title">Tambah Supplier</span>
 					</a>
 				</li>
 				<li >
@@ -894,6 +957,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		</span>
 	</div>
 </div>
+
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -932,8 +996,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{asset('conquer2/scripts/app.js')}}" type="text/javascript"></script>
 <script src="{{asset('conquer2/scripts/index.js')}}" type="text/javascript"></script>
 <script src="{{asset('conquer2/scripts/tasks.js')}}" type="text/javascript"></script>
+<script src="{{asset('conquer2/plugins/jquery.editable.min.js')}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+@yield('javascript')
 <script>
+
 jQuery(document).ready(function() {    
    App.init(); // initlayout and core plugins
    Index.init();
